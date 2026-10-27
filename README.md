@@ -17,7 +17,7 @@ The actual rendering of the HTML is done using a wasm application that is compil
 
 There's a make file that you call using
 
-```bash
+```
 make install DEST=<target_directory>
 ```
 
