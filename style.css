@@ -1,0 +1,8 @@
+body { display: flex; height: 100vh; margin: 0; }
+#input, #output { flex: 1; padding: 20px; height: 100%; box-sizing: border-box; overflow: auto; }
+#input { border-right: 1px solid #ccc; font-family: monospace; }
+#output table { border-collapse: collapse; width: 100%; }
+#output table, #output th, #output td { border: 1px solid black; }
+#output th, #output td { padding: 8px; text-align: left; }
+#output pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+#output code { font-family: monospace; }

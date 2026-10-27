@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="wasm_exec.js"></script>
+    <script>
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+            go.run(result.instance);
+        });
+
+        function updateOutput() {
+            const input = document.getElementById("input").value;
+            if (typeof renderMarkdown === "function") {
+                const html = renderMarkdown(input);
+                document.getElementById("output").innerHTML = html;
+                console.log("HTML generated:", html);
+                Prism.highlightAllUnder(document.getElementById("output"));
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <textarea id="input" oninput="updateOutput()" placeholder="Type markdown here..."></textarea>
+    <div id="output"></div>
+</body>
+</html>

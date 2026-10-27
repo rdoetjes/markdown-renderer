@@ -1,0 +1,825 @@
+a | b
+---|---
+c | d
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
++++
+a | b
+---|--
+c | d
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
++++
+|a|b|c|d|
+|----|----|----|---|
+|e|f|g|h|
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th>d</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>e</td>
+<td>f</td>
+<td>g</td>
+<td>h</td>
+</tr>
+</tbody>
+</table>
++++
+*a*|__b__|[c](C)|d
+---|---|---|---
+e|f|g|h
++++
+<table>
+<thead>
+<tr>
+<th><em>a</em></th>
+<th><strong>b</strong></th>
+<th><a href="C">c</a></th>
+<th>d</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>e</td>
+<td>f</td>
+<td>g</td>
+<td>h</td>
+</tr>
+</tbody>
+</table>
++++
+a|b|c
+---|---|---
+d|e|f
+g|h
+i|j|k|l|m
+n|o|p
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>d</td>
+<td>e</td>
+<td>f</td>
+</tr>
+
+<tr>
+<td>g</td>
+<td>h</td>
+<td></td>
+</tr>
+
+<tr>
+<td>i</td>
+<td>j</td>
+<td>k</td>
+</tr>
+
+<tr>
+<td>n</td>
+<td>o</td>
+<td>p</td>
+</tr>
+</tbody>
+</table>
++++
+a|b|c
+---|---|---
+*d*|__e__|f
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><em>d</em></td>
+<td><strong>e</strong></td>
+<td>f</td>
+</tr>
+</tbody>
+</table>
++++
+a|b|c|d
+:--|--:|:-:|---
+e|f|g|h
++++
+<table>
+<thead>
+<tr>
+<th align="left">a</th>
+<th align="right">b</th>
+<th align="center">c</th>
+<th>d</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">e</td>
+<td align="right">f</td>
+<td align="center">g</td>
+<td>h</td>
+</tr>
+</tbody>
+</table>
++++
+a|b|c
+---|---|---
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+</table>
++++
+a| b|c | d | e
+---|---|---|---|---
+f| g|h | i |j
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+<th>d</th>
+<th>e</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>f</td>
+<td>g</td>
+<td>h</td>
+<td>i</td>
+<td>j</td>
+</tr>
+</tbody>
+</table>
++++
+a|b\|c|d
+---|---|---
+f|g\|h|i
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b|c</th>
+<th>d</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>f</td>
+<td>g|h</td>
+<td>i</td>
+</tr>
+</tbody>
+</table>
++++
+a|b\|c|d
+---|---|---
+f|g\|h|i
+===|===|===
+j|k|l|m
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b|c</th>
+<th>d</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>f</td>
+<td>g|h</td>
+<td>i</td>
+</tr>
+</tbody>
+
+<tfoot>
+<tr>
+<td>j</td>
+<td>k</td>
+<td>l</td>
+</tr>
+</tfoot>
+</table>
++++
+---|---
+c | d
++++
+<table>
+<tbody>
+<tr>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
++++
+a || b
+---|---|---
+f|||
+h|i|j
++++
+<table>
+<thead>
+<tr>
+<th colspan="2">a</th>
+<th>b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td colspan="3">f</td>
+</tr>
+
+<tr>
+<td>h</td>
+<td>i</td>
+<td>j</td>
+</tr>
+</tbody>
+</table>
++++
+| a | b |
+|---|---|
+| | |+++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
++++
+|  |  |
+|---|---|
+| a | b |+++
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
++++
+prefix text
+| a | b |
+|---|---|
+| | |+++
+<p>prefix text</p>
+
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
++++
+| a | `b|c` |
+|---|---|
+| | |+++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th><code>b|c</code></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
++++
+---|---
+c | `d|e`
++++
+<table>
+<tbody>
+<tr>
+<td>c</td>
+<td><code>d|e</code></td>
+</tr>
+</tbody>
+</table>
++++
+|---|--- |
+| c  | `d|e` |
++++
+<table>
+<tbody>
+<tr>
+<td>c</td>
+<td><code>d|e</code></td>
+</tr>
+</tbody>
+</table>
++++
+|---|--- |
+| c  | `d|e` |
+|===|====|
+| `f|g` | h |
++++
+<table>
+<tbody>
+<tr>
+<td>c</td>
+<td><code>d|e</code></td>
+</tr>
+</tbody>
+
+<tfoot>
+<tr>
+<td><code>f|g</code></td>
+<td>h</td>
+</tr>
+</tfoot>
+</table>
++++
+| a`|`b | c |
+| --- | --- |
+| x | y |
++++
+<table>
+<thead>
+<tr>
+<th>a<code>|</code>b</th>
+<th>c</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>x</td>
+<td>y</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| x`|`y | z |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>x<code>|</code>y</td>
+<td>z</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| x`|`| z |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>x<code>|</code></td>
+<td>z</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| a ` b | c |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>a ` b</td>
+<td>c</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| a` | c |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>a`</td>
+<td>c</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| ``a`|`b`` | c |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>a`|`b</code></td>
+<td>c</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| `a|b` and `c|d` | e |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>a|b</code> and <code>c|d</code></td>
+<td>e</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| ` | ` | z |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>|</code></td>
+<td>z</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| a `b | c` d |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>a <code>b | c</code> d</td>
+<td></td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 | h3 |
+| --- | --- | --- |
+| a || b `|` c |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+<th>h3</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td colspan="2">a</td>
+<td>b <code>|</code> c</td>
+</tr>
+</tbody>
+</table>
++++
+a `x|y` b | c
+--- | ---
+1 | 2
++++
+<table>
+<thead>
+<tr>
+<th>a <code>x|y</code> b</th>
+<th>c</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| 1 | 2 |
+|===|===|
+| x`|`y | z |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+
+<tfoot>
+<tr>
+<td>x<code>|</code>y</td>
+<td>z</td>
+</tr>
+</tfoot>
+</table>
++++
+| h1 | h2 |
+| --- | --- |
+| \| `q|r` | d |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>| <code>q|r</code></td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
++++
+| a | b |
+| --- | --- |
+| \`x | y` |
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>`x</td>
+<td>y`</td>
+</tr>
+</tbody>
+</table>
++++
+| \`a | b` |
+| --- | --- |
+| 1 | 2 |
++++
+<table>
+<thead>
+<tr>
+<th>`a</th>
+<th>b`</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
++++
+| a | b |
+| --- | --- |
+| \\`x | y` |
++++
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>\<code>x | y</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
++++
+| a ` b |
+| --- |
+| c ` d |
++++
+<table>
+<thead>
+<tr>
+<th>a ` b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>c ` d</td>
+</tr>
+</tbody>
+</table>
++++
+| `a | b |
+| --- | --- |
+| x | y |
+
+text ` more
++++
+<table>
+<thead>
+<tr>
+<th>`a</th>
+<th>b</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>x</td>
+<td>y</td>
+</tr>
+</tbody>
+</table>
+<p>text ` more</p>
++++
+| h1 | h2 |
+| --- | --- |
+| a` | b` |
++++
+<table>
+<thead>
+<tr>
+<th>h1</th>
+<th>h2</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>a<code>| b</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
