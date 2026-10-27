@@ -22,12 +22,22 @@
         });
     </script>
     <div id="toolbar">
-        <button onclick="insertMedia('image')">Insert Image</button>
-        <button onclick="insertMedia('video')">Insert Video</button>
-        <button onclick="openTableModal()">Create Table</button>
-        <button onclick="openColorModal()">Text Color</button>
-        <button onclick="downloadFile('md')">Save Markdown</button>
-        <button onclick="downloadFile('html')">Save HTML</button>
+        <div class="dropdown">
+            <button class="dropbtn">Markup ▼</button>
+            <div class="dropdown-content">
+                <button onclick="insertMedia('image')">Insert Image</button>
+                <button onclick="insertMedia('video')">Insert Video</button>
+                <button onclick="openTableModal()">Create Table</button>
+                <button onclick="openColorModal()">Text Color</button>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Save ▼</button>
+            <div class="dropdown-content">
+                <button onclick="downloadFile('md')">Save Markdown</button>
+                <button onclick="downloadFile('html')">Save HTML</button>
+            </div>
+        </div>
     </div>
     <div id="container">
         <textarea id="input" oninput="updateOutput()" placeholder="Type markdown here..."></textarea>
