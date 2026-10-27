@@ -91,6 +91,34 @@ function applyAlignment(align) {
     updateOutput();
 }
 
+function generateIndex() {
+    const textarea = document.getElementById('input');
+    const text = textarea.value;
+    const lines = text.split('\n');
+    let indexMd = '\n';
+
+    // Regex to match headers (e.g., # Header, ## Subheader)
+    const headerRegex = /^(#{1,6})\s+(.+)$/;
+
+    lines.forEach(line => {
+        const match = line.match(headerRegex);
+        if (match) {
+            const level = match[1].length;
+            const title = match[2].trim();
+            // Create a slug for the anchor link
+            const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+            
+            // Indent based on header level
+            // For markdown nesting (e.g. 1st level = 0 indent, 2nd = 1, etc.)
+            const indent = '  '.repeat(level - 1);
+            indexMd += `${indent}* [${title}](#${slug})\n`;
+        }
+    });
+
+    textarea.value = textarea.value.substring(0, textarea.selectionStart) + indexMd + textarea.value.substring(textarea.selectionStart);
+    updateOutput();
+}
+
 function openTableModal() {
     document.getElementById('table-modal').style.display = 'block';
 }
@@ -107,7 +135,6 @@ function closeColorModal() {
     document.getElementById('color-modal').style.display = 'none';
 }
 
-// Link Modal functions
 function openLinkModal() {
     document.getElementById('link-modal').style.display = 'block';
 }
@@ -116,18 +143,8 @@ function closeLinkModal() {
     document.getElementById('link-modal').style.display = 'none';
 }
 
-function applyLink() {
-    const text = document.getElementById('link-text').value;
-    const url = document.getElementById('link-url').value;
-    const textarea = document.getElementById('input');
-    
-    if (text && url) {
-        textarea.value += `\n[${text}](${url})\n`;
-    }
-    document.getElementById('link-text').value = '';
-    document.getElementById('link-url').value = '';
-    updateOutput();
-    closeLinkModal();
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
 }
 
 function insertMedia(type) {
@@ -172,6 +189,20 @@ function applyColor() {
     document.getElementById('color-text').value = '';
     updateOutput();
     closeColorModal();
+}
+
+function applyLink() {
+    const text = document.getElementById('link-text').value;
+    const url = document.getElementById('link-url').value;
+    const textarea = document.getElementById('input');
+    
+    if (text && url) {
+        textarea.value += `\n[${text}](${url})\n`;
+    }
+    document.getElementById('link-text').value = '';
+    document.getElementById('link-url').value = '';
+    updateOutput();
+    closeLinkModal();
 }
 
 function applyMedia() {
