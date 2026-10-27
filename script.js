@@ -52,16 +52,10 @@ function applyMedia() {
         textarea.value += `\n![${desc}](${url})\n`;
     } else {
         const height = document.getElementById('vid-height').value;
-        // Always embed as an iframe to support all video platforms (YouTube, Vimeo, etc)
-        // We convert standard URLs to embed URLs if needed or just use as src
         let embedUrl = url;
-        if (url.includes('youtube.com/watch?v=')) {
-            embedUrl = url.replace('watch?v=', 'embed/');
-        } else if (url.includes('youtu.be/')) {
-            embedUrl = url.replace('youtu.be/', 'youtube.com/embed/');
-        } else if (url.includes('youtube.com/shorts/')) {
-            embedUrl = url.replace('youtube.com/shorts/', 'youtube.com/embed/');
-        }
+        if (url.includes('youtube.com/watch?v=')) embedUrl = url.replace('watch?v=', 'embed/');
+        else if (url.includes('youtu.be/')) embedUrl = url.replace('youtu.be/', 'youtube.com/embed/');
+        else if (url.includes('youtube.com/shorts/')) embedUrl = url.replace('youtube.com/shorts/', 'youtube.com/embed/');
         
         textarea.value += `\n<iframe width="100%" height="${height}" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>\n`;
     }
