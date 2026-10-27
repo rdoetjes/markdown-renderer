@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"io"
 	"syscall/js"
 
@@ -19,6 +20,8 @@ func renderMarkdown(this js.Value, args []js.Value) interface{} {
 	doc := p.Parse([]byte(input))
 
 	htmlFlags := html.CommonFlags | html.HrefTargetBlank
+	// Standard html renderer handles escaping automatically,
+	// but since we hooked RenderNodeHook, we must ensure we escape content manually
 	opts := html.RendererOptions{
 		Flags: htmlFlags,
 		RenderNodeHook: func(w io.Writer, node ast.Node, entering bool) (ast.WalkStatus, bool) {
@@ -28,7 +31,9 @@ func renderMarkdown(this js.Value, args []js.Value) interface{} {
 					lang = "text"
 				}
 				w.Write([]byte("<pre><code class=\"language-" + lang + "\">"))
-				w.Write(code.Literal)
+				// Escape HTML entities to prevent them from being rendered as HTML tags
+				escapedContent := template.HTMLEscapeString(string(code.Literal))
+				w.Write([]byte(escapedContent))
 				w.Write([]byte("</code></pre>"))
 				return ast.SkipChildren, true
 			}
