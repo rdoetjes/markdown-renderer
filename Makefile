@@ -14,6 +14,7 @@ run: build
 JAIL_PATH_100 = /zroot/sylve/jails/100
 
 jail:
+	make build
 	@if [ -z "$(JAIL_ID)" ]; then \
 		echo "Usage: sudo make jail JAIL_ID=<jail_id>"; \
 		exit 1; \
