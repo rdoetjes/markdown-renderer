@@ -1,0 +1,3 @@
+gocache/*
+go_mod/pkg
+main.wasm
