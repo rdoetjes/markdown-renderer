@@ -1,13 +1,10 @@
-// Move all logic here, keep it simple
 function updateOutput() {
     const input = document.getElementById("input").value;
-    console.log("updateOutput called, renderMarkdown exists:", typeof renderMarkdown === "function");
     if (typeof renderMarkdown === "function") {
         document.getElementById("output").innerHTML = renderMarkdown(input);
         Prism.highlightAll();
     }
 }
-// ... rest of the functions
 
 let currentType = '';
 
@@ -27,6 +24,7 @@ function insertMedia(type) {
     currentType = type;
     document.getElementById('modal-title').innerText = 'Insert ' + (type === 'image' ? 'Image' : 'Video');
     document.getElementById('image-options').style.display = (type === 'image' ? 'block' : 'none');
+    document.getElementById('video-options').style.display = (type === 'video' ? 'block' : 'none');
     document.getElementById('modal').style.display = 'block';
 }
 
@@ -53,7 +51,19 @@ function applyMedia() {
     if (currentType === 'image') {
         textarea.value += `\n![${desc}](${url})\n`;
     } else {
-        textarea.value += `\n<video controls width="500"><source src="${url}"></video>\n`;
+        const height = document.getElementById('vid-height').value;
+        // Always embed as an iframe to support all video platforms (YouTube, Vimeo, etc)
+        // We convert standard URLs to embed URLs if needed or just use as src
+        let embedUrl = url;
+        if (url.includes('youtube.com/watch?v=')) {
+            embedUrl = url.replace('watch?v=', 'embed/');
+        } else if (url.includes('youtu.be/')) {
+            embedUrl = url.replace('youtu.be/', 'youtube.com/embed/');
+        } else if (url.includes('youtube.com/shorts/')) {
+            embedUrl = url.replace('youtube.com/shorts/', 'youtube.com/embed/');
+        }
+        
+        textarea.value += `\n<iframe width="100%" height="${height}" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>\n`;
     }
     updateOutput();
     closeModal();

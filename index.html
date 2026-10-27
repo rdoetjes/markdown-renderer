@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <script src="wasm_exec.js"></script>
-    <script src="script.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -13,15 +12,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <script>
-        // Inline this specifically because it relies on the 'Go' class from wasm_exec.js
         const go = new Go();
         WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
             go.run(result.instance);
-            console.log("WASM loaded, renderMarkdown is:", typeof renderMarkdown);
         });
     </script>
     <div id="toolbar">
@@ -49,17 +46,17 @@
         <h3 id="modal-title">Insert Media</h3>
         <input type="text" id="media-url" placeholder="URL">
         <input type="text" id="media-desc" placeholder="Description">
-        <div id="image-options" style="display:none;">
-            <select id="img-align"><option value="">Align (Default)</option><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select>
-            <input type="number" id="img-scale" placeholder="Width (px)" min="50" max="1000">
+        <div id="media-options">
+            <div id="image-options" style="display:none;">
+                <select id="img-align"><option value="">Align (Default)</option><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select>
+                <input type="number" id="img-scale" placeholder="Width (px)" min="50" max="1000">
+            </div>
+            <div id="video-options" style="display:none;">
+                Height (px): <input type="number" id="vid-height" placeholder="Height (px)" value="200" min="50" max="1000">
+            </div>
         </div>
         <button onclick="applyMedia()">Insert</button>
         <button onclick="closeModal()">Cancel</button>
     </div>
-    
-    <script>
-        const go = new Go();
-        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => go.run(result.instance));
-    </script>
 </body>
 </html>
