@@ -22,5 +22,5 @@ jail:
 	DEST_DIR="$$JAIL_ROOT/usr/local/www/content_renderer"; \
 	echo "Installing to jail $(JAIL_ID) (Root: $$JAIL_ROOT) at $$DEST_DIR"; \
 	mkdir -p $$DEST_DIR; \
-	cp index.html main.wasm wasm_exec.js style.css $$DEST_DIR/; \
+	cp index.html main.wasm wasm_exec.js style.css script.js $$DEST_DIR/; \
 	echo "Successfully installed files to $$DEST_DIR"
