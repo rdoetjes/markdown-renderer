@@ -29,6 +29,7 @@
                 <button onclick="insertMedia('video')">Insert Video</button>
                 <button onclick="openTableModal()">Create Table</button>
                 <button onclick="openColorModal()">Text Color</button>
+                <button onclick="openLinkModal()">Insert Link</button>
             </div>
         </div>
         <div class="dropdown">
@@ -56,6 +57,7 @@
         |
         <button onclick="insertList('- ')" style="width: 30px;">•</button>
         <button onclick="insertList('1. ')" style="width: 30px;">1.</button>
+        <button onclick="openLinkModal()" style="width: 30px;">🔗</button>
         |
         <button onclick="applyAlignment('left')" style="width: 30px;">⫷</button>
         <button onclick="applyAlignment('center')" style="width: 30px;">≡</button>
@@ -75,13 +77,13 @@
         <button onclick="closeTableModal()">Cancel</button>
     </div>
 
-    <!-- Color Modal -->
-    <div id="color-modal" class="modal">
-        <h3>Text Color</h3>
-        Text: <input type="text" id="color-text" placeholder="Your text here">
-        Color: <input type="color" id="text-color" value="#ff0000">
-        <button onclick="applyColor()">Apply Color</button>
-        <button onclick="closeColorModal()">Cancel</button>
+    <!-- Link Modal -->
+    <div id="link-modal" class="modal">
+        <h3>Insert Link</h3>
+        Text: <input type="text" id="link-text" placeholder="Link text">
+        URL: <input type="text" id="link-url" placeholder="https://...">
+        <button onclick="applyLink()">Insert Link</button>
+        <button onclick="closeLinkModal()">Cancel</button>
     </div>
 
     <div id="modal" class="modal">

@@ -107,8 +107,27 @@ function closeColorModal() {
     document.getElementById('color-modal').style.display = 'none';
 }
 
-function closeModal() {
-    document.getElementById('modal').style.display = 'none';
+// Link Modal functions
+function openLinkModal() {
+    document.getElementById('link-modal').style.display = 'block';
+}
+
+function closeLinkModal() {
+    document.getElementById('link-modal').style.display = 'none';
+}
+
+function applyLink() {
+    const text = document.getElementById('link-text').value;
+    const url = document.getElementById('link-url').value;
+    const textarea = document.getElementById('input');
+    
+    if (text && url) {
+        textarea.value += `\n[${text}](${url})\n`;
+    }
+    document.getElementById('link-text').value = '';
+    document.getElementById('link-url').value = '';
+    updateOutput();
+    closeLinkModal();
 }
 
 function insertMedia(type) {
