@@ -1,0 +1,7 @@
+{
+  "name": "markdown-renderer-test",
+  "version": "1.0.0",
+  "dependencies": {
+    "prismjs": "^1.29.0"
+  }
+}

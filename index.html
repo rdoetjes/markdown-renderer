@@ -3,6 +3,27 @@
 <head>
     <meta charset="utf-8">
     <script src="wasm_exec.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Load Core Prism -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+</head>
+<body>
+    <div id="toolbar">
+        <button onclick="insertMedia('image')">Insert Image</button>
+        <button onclick="insertMedia('video')">Insert Video</button>
+    </div>
+    <div id="container">
+        <textarea id="input" oninput="updateOutput()" placeholder="Type markdown here..."></textarea>
+        <div id="output"></div>
+    </div>
+    
     <script>
         const go = new Go();
         WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
@@ -12,21 +33,43 @@
         function updateOutput() {
             const input = document.getElementById("input").value;
             if (typeof renderMarkdown === "function") {
-                const html = renderMarkdown(input);
-                document.getElementById("output").innerHTML = html;
-                console.log("HTML generated:", html);
-                Prism.highlightAllUnder(document.getElementById("output"));
+                document.getElementById("output").innerHTML = renderMarkdown(input);
+                
+                // Prism autoloader needs a moment to fetch languages.
+                // We re-highlight repeatedly for a short period to catch the fetch result.
+                Prism.highlightAll();
+                setTimeout(() => Prism.highlightAll(), 500);
             }
         }
+
+        let currentType = '';
+        function insertMedia(type) {
+            currentType = type;
+            document.getElementById('modal-title').innerText = 'Insert ' + (type === 'image' ? 'Image' : 'Video');
+            document.getElementById('image-options').style.display = (type === 'image' ? 'block' : 'none');
+            document.getElementById('modal').style.display = 'block';
+        }
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+        function applyMedia() {
+            const url = document.getElementById('media-url').value;
+            const desc = document.getElementById('media-desc').value;
+            const textarea = document.getElementById('input');
+            if (currentType === 'image') textarea.value += `\n![${desc}](${url})\n`;
+            else textarea.value += `\n<video controls width="500"><source src="${url}"></video>\n`;
+            updateOutput(); closeModal();
+        }
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <textarea id="input" oninput="updateOutput()" placeholder="Type markdown here..."></textarea>
-    <div id="output"></div>
+    
+    <div id="modal" style="display:none; position:fixed; top:20%; left:30%; background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
+        <h3 id="modal-title">Insert Media</h3>
+        <input type="text" id="media-url" placeholder="URL"><br>
+        <input type="text" id="media-desc" placeholder="Description"><br>
+        <div id="image-options" style="display:none;">
+            Align: <select id="img-align"><option value="">Default</option></select><br>
+            Scale: <input type="number" id="img-scale" placeholder="Width (px)">
+        </div>
+        <button onclick="applyMedia()">Insert</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
 </body>
 </html>
