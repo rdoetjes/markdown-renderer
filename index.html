@@ -12,6 +12,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <!-- MathJax for Math Notation -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -30,6 +33,7 @@
                 <button onclick="openTableModal()">Create Table</button>
                 <button onclick="openColorModal()">Text Color</button>
                 <button onclick="generateIndex()">Create Index</button>
+                <button onclick="insertStyle('$$\n', '\n$$')">Math Block</button>
                 <button onclick="openLinkModal()">Insert Link</button>
             </div>
         </div>

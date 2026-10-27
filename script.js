@@ -1,8 +1,16 @@
 function updateOutput() {
     const input = document.getElementById("input").value;
     if (typeof renderMarkdown === "function") {
-        document.getElementById("output").innerHTML = renderMarkdown(input);
+        const outputDiv = document.getElementById("output");
+        outputDiv.innerHTML = renderMarkdown(input);
+        
+        // Highlight code
         Prism.highlightAll();
+        
+        // Render MathJax
+        if (typeof MathJax !== "undefined") {
+            MathJax.typesetPromise([outputDiv]).catch((err) => console.log(err));
+        }
     }
 }
 
