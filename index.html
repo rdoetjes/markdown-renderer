@@ -25,6 +25,7 @@
         <button onclick="insertMedia('image')">Insert Image</button>
         <button onclick="insertMedia('video')">Insert Video</button>
         <button onclick="openTableModal()">Create Table</button>
+        <button onclick="openColorModal()">Text Color</button>
         <button onclick="downloadFile('md')">Save Markdown</button>
         <button onclick="downloadFile('html')">Save HTML</button>
     </div>
@@ -40,6 +41,15 @@
         Cols: <input type="number" id="table-cols" value="2" min="1">
         <button onclick="generateTable()">Insert Table</button>
         <button onclick="closeTableModal()">Cancel</button>
+    </div>
+    
+    <!-- Color Modal -->
+    <div id="color-modal" class="modal">
+        <h3>Text Color</h3>
+        Text: <input type="text" id="color-text" placeholder="Your text here">
+        Color: <input type="color" id="text-color" value="#ff0000">
+        <button onclick="applyColor()">Apply Color</button>
+        <button onclick="closeColorModal()">Cancel</button>
     </div>
     
     <div id="modal" class="modal">

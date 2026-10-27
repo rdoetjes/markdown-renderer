@@ -16,6 +16,14 @@ function closeTableModal() {
     document.getElementById('table-modal').style.display = 'none';
 }
 
+function openColorModal() {
+    document.getElementById('color-modal').style.display = 'block';
+}
+
+function closeColorModal() {
+    document.getElementById('color-modal').style.display = 'none';
+}
+
 function closeModal() {
     document.getElementById('modal').style.display = 'none';
 }
@@ -26,6 +34,27 @@ function insertMedia(type) {
     document.getElementById('image-options').style.display = (type === 'image' ? 'block' : 'none');
     document.getElementById('video-options').style.display = (type === 'video' ? 'block' : 'none');
     document.getElementById('modal').style.display = 'block';
+}
+
+function applyColor() {
+    const color = document.getElementById('text-color').value;
+    const text = document.getElementById('color-text').value;
+    const textarea = document.getElementById('input');
+    
+    if (text) {
+        textarea.value += `\n<span style="color: ${color};">${text}</span>\n`;
+    } else {
+        const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+        if (selectedText) {
+            const replacement = `<span style="color: ${color};">${selectedText}</span>`;
+            textarea.value = textarea.value.substring(0, textarea.selectionStart) + replacement + textarea.value.substring(textarea.selectionEnd);
+        } else {
+            textarea.value += `\n<span style="color: ${color};">Your text here</span>\n`;
+        }
+    }
+    document.getElementById('color-text').value = '';
+    updateOutput();
+    closeColorModal();
 }
 
 function generateTable() {
