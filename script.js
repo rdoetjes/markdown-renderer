@@ -6,7 +6,37 @@ function updateOutput() {
     }
 }
 
+function insertStyle(prefix, suffix) {
+    const textarea = document.getElementById('input');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const text = textarea.value;
+    const selection = text.substring(start, end);
+    
+    textarea.value = text.substring(0, start) + prefix + selection + suffix + text.substring(end);
+    textarea.focus();
+    textarea.setSelectionRange(start + prefix.length, end + prefix.length);
+    updateOutput();
+}
+
 let currentType = '';
+
+function applyAlignment(align) {
+    const textarea = document.getElementById('input');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const text = textarea.value;
+    const selection = text.substring(start, end);
+    
+    const replacement = `<div style="text-align: ${align};">${selection}</div>`;
+    textarea.value = text.substring(0, start) + replacement + text.substring(end);
+    
+    // Set cursor position after the opening tag: <div ...>|
+    const cursorOffset = start + `<div style="text-align: ${align};">`.length;
+    textarea.focus();
+    textarea.setSelectionRange(cursorOffset, cursorOffset);
+    updateOutput();
+}
 
 function openTableModal() {
     document.getElementById('table-modal').style.display = 'block';
@@ -36,6 +66,21 @@ function insertMedia(type) {
     document.getElementById('modal').style.display = 'block';
 }
 
+function generateTable() {
+    const rows = parseInt(document.getElementById('table-rows').value);
+    const cols = parseInt(document.getElementById('table-cols').value);
+    const textarea = document.getElementById('input');
+    
+    let tableMd = '\n|' + ' Header |'.repeat(cols) + '\n|' + ' --- |'.repeat(cols) + '\n';
+    for (let i = 0; i < rows; i++) {
+        tableMd += '|' + ' Cell |'.repeat(cols) + '\n';
+    }
+    
+    textarea.value += tableMd + '\n';
+    updateOutput();
+    closeTableModal();
+}
+
 function applyColor() {
     const color = document.getElementById('text-color').value;
     const text = document.getElementById('color-text').value;
@@ -55,21 +100,6 @@ function applyColor() {
     document.getElementById('color-text').value = '';
     updateOutput();
     closeColorModal();
-}
-
-function generateTable() {
-    const rows = parseInt(document.getElementById('table-rows').value);
-    const cols = parseInt(document.getElementById('table-cols').value);
-    const textarea = document.getElementById('input');
-    
-    let tableMd = '\n|' + ' Header |'.repeat(cols) + '\n|' + ' --- |'.repeat(cols) + '\n';
-    for (let i = 0; i < rows; i++) {
-        tableMd += '|' + ' Cell |'.repeat(cols) + '\n';
-    }
-    
-    textarea.value += tableMd + '\n';
-    updateOutput();
-    closeTableModal();
 }
 
 function applyMedia() {

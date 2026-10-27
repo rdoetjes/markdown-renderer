@@ -38,12 +38,23 @@
                 <button onclick="downloadFile('html')">Save HTML</button>
             </div>
         </div>
+        |
+        <button onclick="insertStyle('**', '**')" style="font-weight:bold; width: 30px;">B</button>
+        <button onclick="insertStyle('*', '*')" style="font-style:italic; width: 30px;">I</button>
+        <button onclick="insertStyle('<u>', '</u>')" style="text-decoration:underline; width: 30px;">U</button>
+        |
+        <button onclick="insertList('- ')" style="width: 30px;">•</button>
+        <button onclick="insertList('1. ')" style="width: 30px;">1.</button>
+        |
+        <button onclick="applyAlignment('left')" style="width: 30px;">⫷</button>
+        <button onclick="applyAlignment('center')" style="width: 30px;">≡</button>
+        <button onclick="applyAlignment('right')" style="width: 30px;">⫸</button>
     </div>
     <div id="container">
         <textarea id="input" oninput="updateOutput()" placeholder="Type markdown here..."></textarea>
         <div id="output"></div>
     </div>
-    
+
     <!-- Modals -->
     <div id="table-modal" class="modal">
         <h3>Create Table</h3>
@@ -52,7 +63,7 @@
         <button onclick="generateTable()">Insert Table</button>
         <button onclick="closeTableModal()">Cancel</button>
     </div>
-    
+
     <!-- Color Modal -->
     <div id="color-modal" class="modal">
         <h3>Text Color</h3>
@@ -61,7 +72,7 @@
         <button onclick="applyColor()">Apply Color</button>
         <button onclick="closeColorModal()">Cancel</button>
     </div>
-    
+
     <div id="modal" class="modal">
         <h3 id="modal-title">Insert Media</h3>
         <input type="text" id="media-url" placeholder="URL">
