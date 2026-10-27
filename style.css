@@ -1,12 +1,16 @@
+body { background-color: #1e1e1e; color: #d4d4d4; font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; }
+#toolbar { padding: 10px; background: #2d2d2d; border-bottom: 1px solid #444; display: flex; gap: 10px; }
+#toolbar button { background: #444; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+#toolbar button:hover { background: #555; }
 #container { display: flex; height: calc(100vh - 45px); cursor: col-resize; }
-#input, #output { flex: 1; padding: 20px; height: 100%; box-sizing: border-box; overflow: auto; min-width: 10%; resize: horizontal; }
-#input { border-right: 5px solid #ccc; font-family: monospace; }
-#input { border-right: 1px solid #ccc; font-family: monospace; }
-#output table { border-collapse: collapse; width: 100%; }
-#output table, #output th, #output td { border: 1px solid #ddd; }
-#output th, #output td { padding: 12px; text-align: left; }
+#input { background: #1e1e1e; color: #d4d4d4; border: none; border-right: 2px solid #444; padding: 20px; flex: 1; resize: none; outline: none; }
+#output { background: #1e1e1e; color: #d4d4d4; padding: 20px; flex: 1; overflow-y: auto; }
+#output table { border-collapse: collapse; width: 100%; border: 1px solid #444; }
+#output th, #output td { border: 1px solid #444; padding: 12px; }
 #output th { background-color: #333; color: white; }
-#output tr:nth-child(even) { background-color: #f2f2f2; }
-#output tr:nth-child(odd) { background-color: #fafafa; }
-#output pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
-#output code { font-family: monospace; }
+#output tr:nth-child(even) { background-color: #252525; }
+#output pre { background-color: #2d2d2d; padding: 10px; border-radius: 5px; border: 1px solid #444; }
+.modal { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#2d2d2d; color:white; padding:25px; border-radius:8px; border:1px solid #444; box-shadow:0 4px 15px rgba(0,0,0,0.5); z-index:1000; width: 300px; }
+.modal h3 { margin-top: 0; }
+.modal input, .modal select { width: 100%; margin: 10px 0; padding: 8px; background: #3c3c3c; border: 1px solid #555; color: white; border-radius: 4px; box-sizing: border-box; }
+.modal button { background: #007acc; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; margin-top: 10px; }

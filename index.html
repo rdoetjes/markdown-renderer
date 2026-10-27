@@ -5,7 +5,6 @@
     <script src="wasm_exec.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- Load Core Prism -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
@@ -18,38 +17,108 @@
     <div id="toolbar">
         <button onclick="insertMedia('image')">Insert Image</button>
         <button onclick="insertMedia('video')">Insert Video</button>
+        <button onclick="openTableModal()">Create Table</button>
+        <button onclick="downloadFile('md')">Save Markdown</button>
+        <button onclick="downloadFile('html')">Save HTML</button>
     </div>
     <div id="container">
         <textarea id="input" oninput="updateOutput()" placeholder="Type markdown here..."></textarea>
         <div id="output"></div>
     </div>
     
+    <!-- Modals -->
+    <div id="table-modal" class="modal">
+        <h3>Create Table</h3>
+        Rows: <input type="number" id="table-rows" value="2" min="1">
+        Cols: <input type="number" id="table-cols" value="2" min="1">
+        <button onclick="generateTable()">Insert Table</button>
+        <button onclick="closeTableModal()">Cancel</button>
+    </div>
+    
+    <div id="modal" class="modal">
+        <h3 id="modal-title">Insert Media</h3>
+        <input type="text" id="media-url" placeholder="URL">
+        <input type="text" id="media-desc" placeholder="Description">
+        <div id="image-options" style="display:none;">
+            <select id="img-align"><option value="">Align (Default)</option><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select>
+            <input type="number" id="img-scale" placeholder="Width (px)" min="50" max="1000">
+        </div>
+        <button onclick="applyMedia()">Insert</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+    
     <script>
         const go = new Go();
-        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
-            go.run(result.instance);
-        });
+        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => go.run(result.instance));
 
         function updateOutput() {
             const input = document.getElementById("input").value;
             if (typeof renderMarkdown === "function") {
                 document.getElementById("output").innerHTML = renderMarkdown(input);
-                
-                // Prism autoloader needs a moment to fetch languages.
-                // We re-highlight repeatedly for a short period to catch the fetch result.
                 Prism.highlightAll();
-                setTimeout(() => Prism.highlightAll(), 500);
             }
         }
 
         let currentType = '';
+        function openTableModal() { document.getElementById('table-modal').style.display = 'block'; }
+        function closeTableModal() { document.getElementById('table-modal').style.display = 'none'; }
         function insertMedia(type) {
             currentType = type;
             document.getElementById('modal-title').innerText = 'Insert ' + (type === 'image' ? 'Image' : 'Video');
             document.getElementById('image-options').style.display = (type === 'image' ? 'block' : 'none');
             document.getElementById('modal').style.display = 'block';
         }
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+        async function downloadFile(type) {
+            let content = '';
+            let filename = '';
+            let mime = '';
+
+            if (type === 'md') {
+                content = document.getElementById('input').value;
+                filename = 'document.md';
+                mime = 'text/markdown';
+            } else {
+                // Fetch the content of style.css to embed it
+                let css = await fetch('style.css').then(r => r.text());
+                let prismCss = await fetch('https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css').then(r => r.text());
+                
+                content = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>${prismCss}</style>
+    <style>${css}</style>
+</head>
+<body>
+    <div id="output">${document.getElementById('output').innerHTML}</div>
+</body>
+</html>`;
+                filename = 'document.html';
+                mime = 'text/html';
+            }
+
+            const blob = new Blob([content], { type: mime });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function generateTable() {
+            const rows = parseInt(document.getElementById('table-rows').value);
+            const cols = parseInt(document.getElementById('table-cols').value);
+            const textarea = document.getElementById('input');
+            let tableMd = '\n|' + ' Header |'.repeat(cols) + '\n|' + ' --- |'.repeat(cols) + '\n';
+            for (let i = 0; i < rows; i++) tableMd += '|' + ' Cell |'.repeat(cols) + '\n';
+            textarea.value += tableMd + '\n';
+            updateOutput(); closeTableModal();
+        }
+
         function applyMedia() {
             const url = document.getElementById('media-url').value;
             const desc = document.getElementById('media-desc').value;
@@ -59,17 +128,5 @@
             updateOutput(); closeModal();
         }
     </script>
-    
-    <div id="modal" style="display:none; position:fixed; top:20%; left:30%; background:white; padding:20px; border:1px solid #ccc; z-index:1000;">
-        <h3 id="modal-title">Insert Media</h3>
-        <input type="text" id="media-url" placeholder="URL"><br>
-        <input type="text" id="media-desc" placeholder="Description"><br>
-        <div id="image-options" style="display:none;">
-            Align: <select id="img-align"><option value="">Default</option></select><br>
-            Scale: <input type="number" id="img-scale" placeholder="Width (px)">
-        </div>
-        <button onclick="applyMedia()">Insert</button>
-        <button onclick="closeModal()">Cancel</button>
-    </div>
 </body>
 </html>
