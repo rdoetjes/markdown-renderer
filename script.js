@@ -6,6 +6,55 @@ function updateOutput() {
     }
 }
 
+function insertList(prefix) {
+    const textarea = document.getElementById('input');
+    const start = textarea.selectionStart;
+    const text = textarea.value;
+    
+    // Find the beginning of the current line
+    let lineStart = text.lastIndexOf('\n', start - 1) + 1;
+    
+    textarea.value = text.substring(0, lineStart) + prefix + text.substring(lineStart);
+    textarea.focus();
+    textarea.setSelectionRange(start + prefix.length, start + prefix.length);
+    updateOutput();
+}
+
+document.getElementById('input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        const textarea = this;
+        const start = textarea.selectionStart;
+        const text = textarea.value;
+        
+        // Find start of the current line
+        const lineStart = text.lastIndexOf('\n', start - 1) + 1;
+        const currentLine = text.substring(lineStart, start);
+        
+        // Check for list markers
+        const bulletMatch = currentLine.match(/^- \s*/);
+        const numberMatch = currentLine.match(/^(\d+)\.\s*/);
+        
+        if (bulletMatch && currentLine.trim() !== '-') {
+            e.preventDefault();
+            textarea.value = text.substring(0, start) + '\n- ' + text.substring(start);
+            textarea.setSelectionRange(start + 3, start + 3);
+            updateOutput();
+        } else if (numberMatch && currentLine.trim() !== numberMatch[0].trim()) {
+            e.preventDefault();
+            // Markdown list renumbering: always use '1.' to allow the renderer to handle sequencing
+            textarea.value = text.substring(0, start) + '\n1. ' + text.substring(start);
+            textarea.setSelectionRange(start + 4, start + 4);
+            updateOutput();
+        } else if ((bulletMatch && currentLine.trim() === '-') || (numberMatch && currentLine.trim() === numberMatch[0].trim())) {
+            // If empty list marker, press enter to remove it and jump to new line
+            e.preventDefault();
+            textarea.value = text.substring(0, lineStart) + text.substring(start);
+            textarea.setSelectionRange(lineStart, lineStart);
+            updateOutput();
+        }
+    }
+});
+
 function insertStyle(prefix, suffix) {
     const textarea = document.getElementById('input');
     const start = textarea.selectionStart;
@@ -17,9 +66,13 @@ function insertStyle(prefix, suffix) {
     textarea.focus();
     textarea.setSelectionRange(start + prefix.length, end + prefix.length);
     updateOutput();
+    
+    // Close all dropdowns
+    document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = 'none');
+    setTimeout(() => {
+        document.querySelectorAll('.dropdown-content').forEach(el => el.style.display = '');
+    }, 100);
 }
-
-let currentType = '';
 
 function applyAlignment(align) {
     const textarea = document.getElementById('input');
