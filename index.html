@@ -12,9 +12,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
-    <!-- MathJax for Math Notation -->
+    
+    <!-- MathJax -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -72,7 +74,7 @@
         <textarea id="input" oninput="updateOutput()" placeholder="Type markdown here..."></textarea>
         <div id="output"></div>
     </div>
-
+    
     <!-- Modals -->
     <div id="table-modal" class="modal">
         <h3>Create Table</h3>
@@ -81,8 +83,7 @@
         <button onclick="generateTable()">Insert Table</button>
         <button onclick="closeTableModal()">Cancel</button>
     </div>
-
-    <!-- Color Modal -->
+    
     <div id="color-modal" class="modal">
         <h3>Text Color</h3>
         Text: <input type="text" id="color-text" placeholder="Your text here">
@@ -91,7 +92,6 @@
         <button onclick="closeColorModal()">Cancel</button>
     </div>
     
-    <!-- Link Modal -->
     <div id="link-modal" class="modal">
         <h3>Insert Link</h3>
         Text: <input type="text" id="link-text" placeholder="Link text">
@@ -99,7 +99,7 @@
         <button onclick="applyLink()">Insert Link</button>
         <button onclick="closeLinkModal()">Cancel</button>
     </div>
-
+    
     <div id="modal" class="modal">
         <h3 id="modal-title">Insert Media</h3>
         <input type="text" id="media-url" placeholder="URL">
