@@ -1,5 +1,4 @@
 # Markdown Renderer
----
 
 ## Table contents
 
