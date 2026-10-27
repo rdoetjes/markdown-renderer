@@ -9,6 +9,10 @@ body { background-color: #1e1e1e; color: #d4d4d4; font-family: sans-serif; displ
 /* Inline code (backticks) */
 #output code { font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace; background-color: #30363d; padding: 0.2em 0.4em; border-radius: 6px; color: #c9d1d9; }
 
+/* Links */
+#output a { color: #8b949e; text-decoration: underline; }
+#output a:hover { color: #58a6ff; }
+
 /* Fenced code blocks */
 #output pre { background-color: #161b22; padding: 16px; border-radius: 6px; overflow-x: auto; border: 1px solid #30363d; margin: 16px 0; color: #c9d1d9; box-shadow: none !important; }
 #output pre code { background-color: #161b22; padding: 0; border: none; border-radius: 0; color: #c9d1d9; box-shadow: none !important; text-shadow: none !important; }
